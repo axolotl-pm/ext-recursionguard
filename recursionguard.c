@@ -53,7 +53,11 @@ PHP_MINIT_FUNCTION(recursionguard)
 {
 	REGISTER_INI_ENTRIES();
 
+#if PHP_VERSION_ID >= 80600
+	if (zend_ini_bool_literal(INI_ENABLED_ENTRY)) {
+#else
 	if (INI_BOOL(INI_ENABLED_ENTRY)) {
+#endif
 		zend_execute_ex_hook = zend_execute_ex;
 		zend_execute_ex = guard_execute_ex;
 	}
@@ -78,7 +82,11 @@ PHP_RINIT_FUNCTION(recursionguard)
 PHP_MINFO_FUNCTION(recursionguard)
 {
 	php_info_print_table_start();
+#if PHP_VERSION_ID >= 80600
+	php_info_print_table_header(2, "recursionguard support", (zend_ini_bool_literal(INI_ENABLED_ENTRY) ? "enabled" : "disabled"));
+#else
 	php_info_print_table_header(2, "recursionguard support", (INI_BOOL(INI_ENABLED_ENTRY) ? "enabled" : "disabled"));
+#endif
 	php_info_print_table_end();
 
 }
