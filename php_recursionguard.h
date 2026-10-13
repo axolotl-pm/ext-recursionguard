@@ -24,7 +24,7 @@
 extern zend_module_entry recursionguard_module_entry;
 #define phpext_recursionguard_ptr &recursionguard_module_entry
 
-#define PHP_RECURSIONGUARD_VERSION "0.1.0"
+#define PHP_RECURSIONGUARD_VERSION "0.1.1"
 
 #ifdef ZTS
 #include "TSRM.h"
